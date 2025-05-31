@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: devops-web
+  namespace: argocd  # ← This is where Argo CD will store this Application object
+spec:
+  destination:
+    namespace: default          # ← This is where your app will be deployed
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/Rchandrakanth/devops-web.git
+    targetRevision: HEAD
+    path: .
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
